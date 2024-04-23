@@ -55,6 +55,19 @@ public class Match {
         && this.awayScore == m.awayScore;
   }
 
+  @Override
+  public String toString() {
+    return "Match: "
+        + this.homeTeam
+        + " v "
+        + this.awayTeam
+        + " ("
+        + this.homeScore
+        + ", "
+        + this.awayScore
+        + ")";
+  }
+
   private String homeTeam;
   private String awayTeam;
   private int homeScore;
