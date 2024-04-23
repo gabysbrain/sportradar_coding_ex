@@ -23,6 +23,17 @@ public class ArrayDataStore implements DataStore {
     this.playing.add(away);
   }
 
+  public void removeMatch(String homeTeam, String awayTeam) throws UnknownMatchException {
+    Match storedMatch = this.matches.get(homeTeam);
+    if (storedMatch == null || storedMatch.getAwayTeam() != awayTeam) {
+      throw new UnknownMatchException(homeTeam, awayTeam);
+    }
+
+    this.matches.remove(homeTeam);
+    this.playing.remove(homeTeam);
+    this.playing.remove(awayTeam);
+  }
+
   public void updateMatch(Match match) throws UnknownMatchException {
     // Ensure a match with these teams is in progress
     Match storedMatch = this.matches.get(match.getHomeTeam());
@@ -31,6 +42,14 @@ public class ArrayDataStore implements DataStore {
     }
 
     this.matches.put(match.getHomeTeam(), match);
+  }
+
+  public Match getMatch(String homeTeam, String awayTeam) throws UnknownMatchException {
+    Match m = this.matches.get(homeTeam);
+    if (m == null || m.getAwayTeam() != awayTeam) {
+      throw new UnknownMatchException(homeTeam, awayTeam);
+    }
+    return m;
   }
 
   public ArrayList<Match> getMatches() {

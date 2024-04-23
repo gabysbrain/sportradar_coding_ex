@@ -71,4 +71,72 @@ class ArrayDataStoreTest {
             () -> store.updateMatch(match2),
             "can't update a match that's not stored");
   }
+
+  @Test
+  void getMatch() throws UnknownMatchException {
+    // Setup
+    ArrayDataStore store = new ArrayDataStore();
+    Match match1 = new Match("home", "away");
+    Match match2 = new Match("home2", "away2");
+    store.createMatch(match1);
+    store.createMatch(match2);
+
+    // Execute
+    Match m = store.getMatch("home2", "away2");
+
+    // Verify
+    assertEquals(new Match("home2", "away2"), m);
+  }
+
+  @Test
+  void getUnknownMatch() {
+    // Setup
+    ArrayDataStore store = new ArrayDataStore();
+    Match match1 = new Match("home", "away");
+    Match match2 = new Match("home2", "away2");
+    store.createMatch(match1);
+    store.createMatch(match2);
+
+    // Execute and verify
+    UnknownMatchException thrown =
+        assertThrows(
+            UnknownMatchException.class,
+            () -> store.getMatch("home2", "away"),
+            "should get exception if match does not exist");
+  }
+
+  @Test
+  void removeMatch() throws UnknownMatchException {
+    // Setup
+    ArrayDataStore store = new ArrayDataStore();
+    Match match1 = new Match("home", "away");
+    Match match2 = new Match("home2", "away2");
+    store.createMatch(match1);
+    store.createMatch(match2);
+
+    // Execute
+    store.removeMatch("home", "away");
+
+    // Verify
+    ArrayList<Match> expected = new ArrayList<Match>();
+    expected.add(match2);
+    assertEquals(expected, store.getMatches());
+  }
+
+  @Test
+  void removeUnknownMatch() {
+    // Setup
+    ArrayDataStore store = new ArrayDataStore();
+    Match match1 = new Match("home", "away");
+    Match match2 = new Match("home2", "away2");
+    store.createMatch(match1);
+    store.createMatch(match2);
+
+    // Execute and verify
+    UnknownMatchException thrown =
+        assertThrows(
+            UnknownMatchException.class,
+            () -> store.removeMatch("home2", "away"),
+            "should get exception if match does not exist");
+  }
 }
