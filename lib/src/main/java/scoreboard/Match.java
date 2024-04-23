@@ -38,6 +38,18 @@ public class Match {
     this.awayScore = score;
   }
 
+  public boolean equals(Object other) {
+    if (!(other instanceof Match)) {
+      return false;
+    }
+
+    Match m = (Match) other;
+    return this.homeTeam == m.homeTeam
+        && this.awayTeam == m.awayTeam
+        && this.homeScore == m.homeScore
+        && this.awayScore == m.awayScore;
+  }
+
   private String homeTeam;
   private String awayTeam;
   private int homeScore;
