@@ -38,6 +38,11 @@ public class Match {
     this.awayScore = score;
   }
 
+  public void setScores(int homeScore, int awayScore) throws InvalidScoreException {
+    this.setHomeScore(homeScore);
+    this.setAwayScore(awayScore);
+  }
+
   public boolean equals(Object other) {
     if (!(other instanceof Match)) {
       return false;
