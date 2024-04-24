@@ -4,3 +4,6 @@ package = "gradle"
 
 [[commands]]
 package = "jdk"
+
+[[commands]]
+package = "pre-commit"
