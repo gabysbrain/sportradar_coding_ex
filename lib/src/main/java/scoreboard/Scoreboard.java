@@ -7,7 +7,14 @@ import java.util.Comparator;
 class MatchComparator implements Comparator<Match> {
   @Override
   public int compare(Match m1, Match m2) {
-    return (m2.getHomeScore() + m2.getAwayScore()) - (m1.getHomeScore() + m1.getAwayScore());
+    int scoreDiff =
+        (m2.getHomeScore() + m2.getAwayScore()) - (m1.getHomeScore() + m1.getAwayScore());
+    // Use most recent match creation time as a secondary sorting key
+    if (scoreDiff == 0) {
+      return m2.getCreateTime().compareTo(m1.getCreateTime());
+    } else {
+      return scoreDiff;
+    }
   }
 }
 

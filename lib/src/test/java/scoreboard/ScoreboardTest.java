@@ -3,6 +3,7 @@ package scoreboard;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 class ScoreboardTest {
@@ -142,5 +143,35 @@ class ScoreboardTest {
         expected,
         scoreboard.getMatches(),
         "getMatches should get all active matches in order of total score");
+  }
+
+  @Test
+  void getMatchesSortedEqualScores()
+      throws InvalidMatchException, InvalidScoreException, UnknownMatchException {
+    // Setup
+    Object[][] finalScores = {
+      {"Spain", "Brazil", 10, 2},
+      {"Germany", "France", 5, 7},
+    };
+
+    Scoreboard scoreboard = new Scoreboard(new ArrayDataStore());
+
+    ArrayList expected = new ArrayList<Match>();
+    for (Object[] md : finalScores) {
+      Match m = new Match((String) md[0], (String) md[1]);
+      m.setScores((int) md[2], (int) md[3]);
+      scoreboard.startMatch(m.getHomeTeam(), m.getAwayTeam());
+      scoreboard.updateScore(m.getHomeTeam(), m.getAwayTeam(), m.getHomeScore(), m.getAwayScore());
+      expected.add(m);
+    }
+    // most recently created match is first
+    Collections.reverse(expected);
+
+    // Execute
+    Iterable<Match> matches = scoreboard.getMatches();
+
+    // Verify
+    assertIterableEquals(
+        expected, scoreboard.getMatches(), "getMatches should use start time for secondary sort");
   }
 }

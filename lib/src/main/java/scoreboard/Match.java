@@ -1,11 +1,15 @@
 package scoreboard;
 
+import java.time.LocalDateTime;
+
 public class Match {
   public Match(String homeTeam, String awayTeam) {
     this.homeTeam = homeTeam;
     this.awayTeam = awayTeam;
     this.homeScore = 0;
     this.awayScore = 0;
+
+    this.createTime = LocalDateTime.now();
   }
 
   public String getHomeTeam() {
@@ -22,6 +26,10 @@ public class Match {
 
   public int getAwayScore() {
     return this.awayScore;
+  }
+
+  public LocalDateTime getCreateTime() {
+    return this.createTime;
   }
 
   public void setHomeScore(int score) throws InvalidScoreException {
@@ -72,4 +80,6 @@ public class Match {
   private String awayTeam;
   private int homeScore;
   private int awayScore;
+
+  private LocalDateTime createTime;
 }
