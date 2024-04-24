@@ -1,5 +1,21 @@
 # Scoreboard
 
+This is a simple scoreboard library to keep track of matches.
+
+## Example of usage
+
+```
+Scoreboard scoreboard = new Scoreboard(new ArrayDataStore());
+
+scoreboard.startMatch("Mexico", "Canada");
+scoreboard.startMatch("Spain", "Brazil");
+scoreboard.updateScore("Mexico", "Canada", 0, 5);
+scoreboard.updateScore("Spain", "Brazil", 10, 2);
+scoreboard.finishMatch("Mexico". "Canada");
+
+scoreboard.getScores();
+```
+
 ## Contributing
 
 ### Setup
