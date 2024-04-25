@@ -18,7 +18,7 @@ public class ArrayDataStore implements DataStore {
     // This is just naive storage so don't worry about duplicates. The caller does
     String home = match.getHomeTeam();
     String away = match.getAwayTeam();
-    this.matches.put(home, match);
+    this.matches.put(home, (Match) match.clone());
     this.playing.add(home);
     this.playing.add(away);
   }
@@ -41,7 +41,7 @@ public class ArrayDataStore implements DataStore {
       throw new UnknownMatchException(match.getHomeTeam(), match.getAwayTeam());
     }
 
-    this.matches.put(match.getHomeTeam(), match);
+    this.matches.put(match.getHomeTeam(), (Match) match.clone());
   }
 
   public Match getMatch(String homeTeam, String awayTeam) throws UnknownMatchException {
