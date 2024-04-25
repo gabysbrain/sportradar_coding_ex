@@ -2,7 +2,7 @@ package scoreboard;
 
 import java.time.LocalDateTime;
 
-public class Match {
+public class Match implements Cloneable {
   public Match(String homeTeam, String awayTeam) {
     this.homeTeam = homeTeam;
     this.awayTeam = awayTeam;
@@ -74,6 +74,16 @@ public class Match {
         + ", "
         + this.awayScore
         + ")";
+  }
+
+  @Override
+  public Object clone() {
+    Match m = new Match(this.homeTeam, this.awayTeam);
+    m.homeScore = this.homeScore;
+    m.awayScore = this.awayScore;
+    m.createTime = this.createTime;
+
+    return m;
   }
 
   private String homeTeam;
